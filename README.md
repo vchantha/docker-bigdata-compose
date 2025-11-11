@@ -22,7 +22,7 @@ Below is a visual representation of the full-stack data platform:
 
 The architecture of the big data platform is illustrated below:
 
-![Architecture](docker-bigdata-compose/images/dataplatform.png)
+![Architecture](images/dataplatform.png)
 
 ---
 
