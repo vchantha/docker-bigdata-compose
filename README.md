@@ -14,7 +14,6 @@ This guide provides a comprehensive checklist and instructions for setting up a 
 
 Below is a visual representation of the full-stack data platform:
 
-![Full-Stack Data Platform](docker-bigdata-compose/images/dataplatform.png)
 
 ---
 
