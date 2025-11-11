@@ -8,15 +8,21 @@ This guide provides a comprehensive checklist and instructions for setting up a 
 - **Trino + Hive** for RDBMS
 - **Hadoop / Minio** for datastore
 
-## Reference
+---
 
-This setup is inspired by the repository: [bigdata-ecosystem-sandbox](https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git)
+## Full-Stack Data Platform
 
-Clone the repository for reference:
+Below is a visual representation of the full-stack data platform:
 
-```bash
-git clone https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git
-```
+![Full-Stack Data Platform](docker-bigdata-compose/images/dataplatform.png)
+
+---
+
+## Architecture
+
+The architecture of the big data platform is illustrated below:
+
+![Architecture](docker-bigdata-compose/images/dataplatform.png)
 
 ---
 
@@ -24,13 +30,13 @@ git clone https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git
 
 ### 1. General Prerequisites
 
-- [ ] Install Docker and Docker Compose.
+- [x] Install Docker and Docker Compose.
 
-- [ ] Allocate sufficient resources (CPU, RAM, and Disk) for Docker.
+- [x] Allocate sufficient resources (CPU, RAM, and Disk) for Docker.
 
-- [ ] Ensure ports required by the services are available.
+- [x] Ensure ports required by the services are available.
 
-- [ ] Clone this repository and navigate to the `docker-bigdata-compose` directory.
+- [x] Clone this repository and navigate to the `docker-bigdata-compose` directory.
 
 ### 2. Nifi (Data Ingestion)
 
@@ -90,10 +96,19 @@ git clone https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git
 
 ### Step 1: Start All Services
 
-Run the following command to start all services:
+Run the following commands to start each service:
 
 ```bash
-docker-compose up -d
+docker compose up -d minio
+docker compose up -d namenode datanode nodemanager resourcemanager historyserver
+docker compose up -d hive-metastore hive-server
+docker compose up -d spark-master spark-worker
+docker compose up -d trino
+docker compose up -d nessie
+docker compose up -d airflow-db airflow
+docker compose up -d jobmanager taskmanager
+docker compose up -d kafka schema-registry postgresql conduktor-console conduktor-monitoring
+docker compose up -d nifi-zookeeper nifi
 ```
 
 ### Step 2: Verify Services
@@ -131,6 +146,18 @@ docker-compose up -d
 - Ensure proper networking between services.
 
 - Monitor logs for troubleshooting: `docker-compose logs -f`.
+
+---
+
+## Credits
+
+This setup is inspired by the repository: [bigdata-ecosystem-sandbox](https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git)
+
+Clone the repository for reference:
+
+```bash
+git clone https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git
+```
 
 ---
 
