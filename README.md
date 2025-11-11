@@ -39,11 +39,11 @@ The architecture of the big data platform is illustrated below:
 
 ### 2. Nifi (Data Ingestion)
 
-- [ ] Define Nifi flows for data ingestion.
+- [x] Define Nifi flows for data ingestion.
 
-- [ ] Configure Nifi processors for data sources and sinks.
+- [x] Configure Nifi processors for data sources and sinks.
 
-- [ ] Expose Nifi UI on a specific port (e.g., `http://localhost:8080`).
+- [x] Expose Nifi UI on a specific port (e.g., `http://localhost:8080`).
 
 - [ ] Test data ingestion pipelines.
 
