@@ -297,7 +297,7 @@ services:
   nifi-zookeeper:
     hostname: nifi-zookeeper
     container_name: nifi-zookeeper
-    image: 'bitnami/zookeeper:3.7.2'
+    image: 'zookeeper:latest'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     restart: on-failure  # Restart the container if it fails

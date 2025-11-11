@@ -23,39 +23,70 @@ Before starting, ensure the following:
 - Required ports for services are available.
 - Clone this repository and navigate to the `docker-bigdata-compose` directory:
 
-```bash
-git clone https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git
-cd docker-bigdata-compose
-```
+    ```bash
+    git clone git@github.com:vchantha/docker-bigdata-compose.git
+    cd docker-bigdata-compose
+    ```
 
 ---
 
 ## Components Overview
 
-### 1. Nifi (Data Ingestion)
 
-- Define and configure data ingestion flows.
-- Expose Nifi UI on `http://localhost:8080`.
+### 1. PostgreSQL
 
-### 2. Spark (Compute)
+- Deploy a PostgreSQL database for metadata storage.
 
-- Set up Spark master and worker nodes.
-- Verify Spark UI on `http://localhost:8081`.
+- Ports: `5432:5432`
 
-### 3. Kafka + Flink (Streaming)
 
-- Deploy Kafka brokers and Zookeeper.
-- Create Kafka topics and set up Flink for stream processing.
+### 2. MinIO (Object Storage)
 
-### 4. Trino + Hive (RDBMS)
+- Deploy MinIO for object storage.
 
-- Deploy Hive Metastore and configure it with a database.
-- Set up Trino for querying data.
+- Ports: `9000:9000` (server), `9001:9001` (console)
 
-### 5. Hadoop / Minio (Datastore)
 
-- Deploy Hadoop HDFS or Minio for storage.
-- Configure storage paths and permissions.
+### 3. Hadoop (HDFS)
+
+- Deploy NameNode, DataNode, NodeManager, ResourceManager, and HistoryServer.
+
+- Ports: `9870` (NameNode), `8042` (NodeManager), `8088` (ResourceManager)
+
+
+### 4. Hive
+
+- Deploy Hive Metastore and Hive Server.
+
+- Ports: `9083` (Metastore), `10000` (Hive Server)
+
+
+### 5. Spark
+
+- Deploy Spark Master and Worker nodes.
+
+- Ports: `7077` (Master), `8080` (Master UI), `8081` (Worker UI)
+
+
+### 6. Airflow
+
+- Deploy Airflow for workflow orchestration.
+
+- Ports: `8090` (Airflow UI)
+
+
+### 7. Trino
+
+- Deploy Trino for querying data.
+
+- Ports: `8080`
+
+
+### 8. Kafka
+
+- Deploy Kafka for messaging and streaming.
+
+- Ports: `9092`
 
 ---
 
@@ -63,20 +94,55 @@ cd docker-bigdata-compose
 
 ### Step 1: Start All Services
 
-Run the following commands to start each service:
+Follow these steps to deploy the services:
 
-```bash
-docker compose up -d minio
-docker compose up -d namenode datanode nodemanager resourcemanager historyserver
-docker compose up -d hive-metastore hive-server
-docker compose up -d spark-master spark-worker
-docker compose up -d trino
-docker compose up -d nessie
-docker compose up -d airflow-db airflow
-docker compose up -d jobmanager taskmanager
-docker compose up -d kafka schema-registry postgresql conduktor-console conduktor-monitoring
-docker compose up -d nifi-zookeeper nifi
-```
+1. **PostgreSQL**:
+
+    ```bash
+    docker compose up -d postgres
+    ```
+
+2. **MinIO**:
+
+    ```bash
+    docker compose up -d minio
+    ```
+
+3. **Hadoop (HDFS)**:
+
+    ```bash
+    docker compose up -d namenode datanode nodemanager resourcemanager historyserver
+    ```
+
+4. **Hive**:
+
+    ```bash
+    docker compose up -d hive-metastore hive-server
+    ```
+
+5. **Spark**:
+
+    ```bash
+    docker compose up -d spark-master spark-worker
+    ```
+
+6. **Airflow**:
+
+    ```bash
+    docker compose up -d airflow-db airflow
+    ```
+
+7. **Trino**:
+
+    ```bash
+    docker compose up -d trino
+    ```
+
+8. **Kafka**:
+
+    ```bash
+    docker compose up -d kafka
+    ```
 
 ---
 
@@ -84,12 +150,14 @@ docker compose up -d nifi-zookeeper nifi
 
 Verify that the services are running:
 
-- **Nifi**: `http://localhost:8080`
-- **Spark UI**: `http://localhost:8081`
-- **Kafka**: Use Kafka CLI tools or a UI like Kafdrop.
-- **Flink**: `http://localhost:8082`
-- **Trino**: `http://localhost:8083`
-- **Hadoop/Minio**: `http://localhost:9000` (Minio) or HDFS CLI.
+- **PostgreSQL**: `5432`
+- **MinIO**: `http://localhost:9000` (server), `http://localhost:9001` (console).
+- **Hadoop**: `http://localhost:9870` (NameNode), `http://localhost:8042` (NodeManager), `http://localhost:8088` (ResourceManager).
+- **Hive**: `http://localhost:9083` (Metastore), `http://localhost:10000` (Hive Server).
+- **Spark**: `http://localhost:8080` (Master UI), `http://localhost:8081` (Worker UI).
+- **Airflow**: `http://localhost:8090`.
+- **Trino**: `http://localhost:8080`.
+- **Kafka**: `http://localhost:9092`.
 
 ---
 
@@ -115,6 +183,11 @@ Verify that the services are running:
 
 This setup is inspired by the repository: [bigdata-ecosystem-sandbox](https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git)
 
+This is Dashboard for reference:
+https://www.slideteam.net/blog/top-10-banking-dashboard-templates-with-samples-and-examples
+https://github.com/Udbhav1405/Banking-Dashboard
+
+```bash
 ---
 
 Happy Big Data Engineering!
