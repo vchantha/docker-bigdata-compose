@@ -1,19 +1,8 @@
 # Big Data Ecosystem with Docker Compose
 
-This guide provides a comprehensive checklist and instructions for setting up a big data ecosystem using Docker Compose. The stack includes the following components:
+## Introduction
 
-- **Nifi** for data ingestion
-- **Spark** for compute
-- **Kafka + Flink** for streaming
-- **Trino + Hive** for RDBMS
-- **Hadoop / Minio** for datastore
-
----
-
-## Full-Stack Data Platform
-
-Below is a visual representation of the full-stack data platform:
-
+This project provides a comprehensive guide to setting up a big data ecosystem using Docker Compose. The stack includes various components for data ingestion, processing, storage, and querying, making it suitable for big data workflows.
 
 ---
 
@@ -25,69 +14,48 @@ The architecture of the big data platform is illustrated below:
 
 ---
 
-## Full-Stack Checklist
+## Prerequisites
 
-### 1. General Prerequisites
+Before starting, ensure the following:
 
-- [x] Install Docker and Docker Compose.
+- Docker and Docker Compose are installed.
+- Sufficient resources (CPU, RAM, and Disk) are allocated for Docker.
+- Required ports for services are available.
+- Clone this repository and navigate to the `docker-bigdata-compose` directory:
 
-- [x] Allocate sufficient resources (CPU, RAM, and Disk) for Docker.
+```bash
+git clone https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git
+cd docker-bigdata-compose
+```
 
-- [x] Ensure ports required by the services are available.
+---
 
-- [x] Clone this repository and navigate to the `docker-bigdata-compose` directory.
+## Components Overview
 
-### 2. Nifi (Data Ingestion)
+### 1. Nifi (Data Ingestion)
 
-- [x] Define Nifi flows for data ingestion.
+- Define and configure data ingestion flows.
+- Expose Nifi UI on `http://localhost:8080`.
 
-- [x] Configure Nifi processors for data sources and sinks.
+### 2. Spark (Compute)
 
-- [x] Expose Nifi UI on a specific port (e.g., `http://localhost:8080`).
+- Set up Spark master and worker nodes.
+- Verify Spark UI on `http://localhost:8081`.
 
-- [ ] Test data ingestion pipelines.
+### 3. Kafka + Flink (Streaming)
 
-### 3. Spark (Compute)
+- Deploy Kafka brokers and Zookeeper.
+- Create Kafka topics and set up Flink for stream processing.
 
-- [ ] Set up a Spark master and worker nodes.
+### 4. Trino + Hive (RDBMS)
 
-- [ ] Configure Spark for distributed computing.
+- Deploy Hive Metastore and configure it with a database.
+- Set up Trino for querying data.
 
-- [ ] Verify Spark UI (e.g., `http://localhost:8081`).
+### 5. Hadoop / Minio (Datastore)
 
-- [ ] Run a sample Spark job to validate the setup.
-
-### 4. Kafka + Flink (Streaming)
-
-- [ ] Deploy Kafka brokers and Zookeeper.
-
-- [ ] Create Kafka topics for streaming data.
-
-- [ ] Set up Flink for stream processing.
-
-- [ ] Connect Flink to Kafka topics.
-
-- [ ] Test a sample Flink job for streaming analytics.
-
-### 5. Trino + Hive (RDBMS)
-
-- [ ] Deploy Hive Metastore and configure it with a database (e.g., MySQL/PostgreSQL).
-
-- [ ] Set up Trino for querying data.
-
-- [ ] Connect Trino to Hive Metastore.
-
-- [ ] Test SQL queries on the data.
-
-### 6. Hadoop / Minio (Datastore)
-
-- [ ] Deploy Hadoop HDFS for distributed storage.
-
-- [ ] Alternatively, set up Minio for object storage.
-
-- [ ] Configure storage paths and permissions.
-
-- [ ] Test data storage and retrieval.
+- Deploy Hadoop HDFS or Minio for storage.
+- Configure storage paths and permissions.
 
 ---
 
@@ -110,30 +78,27 @@ docker compose up -d kafka schema-registry postgresql conduktor-console condukto
 docker compose up -d nifi-zookeeper nifi
 ```
 
-### Step 2: Verify Services
+---
 
-- Access Nifi: `http://localhost:8080`
+## Verification
 
-- Access Spark UI: `http://localhost:8081`
+Verify that the services are running:
 
-- Access Kafka: Use Kafka CLI tools or a UI like Kafdrop.
+- **Nifi**: `http://localhost:8080`
+- **Spark UI**: `http://localhost:8081`
+- **Kafka**: Use Kafka CLI tools or a UI like Kafdrop.
+- **Flink**: `http://localhost:8082`
+- **Trino**: `http://localhost:8083`
+- **Hadoop/Minio**: `http://localhost:9000` (Minio) or HDFS CLI.
 
-- Access Flink: `http://localhost:8082`
+---
 
-- Access Trino: `http://localhost:8083`
-
-- Access Hadoop/Minio: `http://localhost:9000` (Minio) or HDFS CLI.
-
-### Step 3: Test the Ecosystem
+## Testing the Ecosystem
 
 - Ingest data using Nifi.
-
 - Process data with Spark.
-
 - Stream data using Kafka and Flink.
-
 - Query data with Trino and Hive.
-
 - Store and retrieve data using Hadoop/Minio.
 
 ---
@@ -141,9 +106,7 @@ docker compose up -d nifi-zookeeper nifi
 ## Notes
 
 - Modify the `docker-compose.yaml` file to customize configurations.
-
 - Ensure proper networking between services.
-
 - Monitor logs for troubleshooting: `docker-compose logs -f`.
 
 ---
@@ -151,12 +114,6 @@ docker compose up -d nifi-zookeeper nifi
 ## Credits
 
 This setup is inspired by the repository: [bigdata-ecosystem-sandbox](https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git)
-
-Clone the repository for reference:
-
-```bash
-git clone https://github.com/amhhaggag/bigdata-ecosystem-sandbox.git
-```
 
 ---
 
